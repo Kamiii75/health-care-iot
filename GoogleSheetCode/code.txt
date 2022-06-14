@@ -1,0 +1,55 @@
+function doGet(request) {
+
+  var ss = SpreadsheetApp.openById("1_q1J00XLIEgm-9Hd4mRDVokD0Go2rLM1diNGYfFILiw");
+  var sheet = ss.getSheetByName("records")
+  var result={"status":"Success"};
+
+  try{
+
+      var patientName=request.parameter.name;
+      var bpm=request.parameter.bpm;
+      var spo=request.parameter.spo;
+      var tempc=request.parameter.tempc;
+      var tempf=request.parameter.tempf;
+      var ecg=request.parameter.ecg;
+      var date=request.parameter.date;
+
+      var rowData = sheet.appendRow([patientName,bpm,spo,tempc,tempf,ecg,date]);
+
+  }catch(exc){
+    result={"status":"Failed"};
+  }
+
+  return ContentService
+  .createTextOutput(JSON.stringify(result))
+  .setMimeType(ContentService.MimeType.JSON);
+  
+}
+
+
+
+function doPost(request) {
+
+  var ss = SpreadsheetApp.openById("1_q1J00XLIEgm-9Hd4mRDVokD0Go2rLM1diNGYfFILiw");
+  var sheet = ss.getSheetByName("chats")
+  var result={"status":"Success"};
+
+  try{
+
+      var patientName=request.parameter.name;
+      var docName=request.parameter.doc;
+      var type=request.parameter.type;
+      var msg=request.parameter.msg;
+      var date=request.parameter.date;
+
+      var rowData = sheet.appendRow([patientName,docName,type,msg,date]);
+
+  }catch(exc){
+    result={"status":"Failed"};
+  }
+
+  return ContentService
+  .createTextOutput(JSON.stringify(result))
+  .setMimeType(ContentService.MimeType.JSON);
+  
+}
